@@ -40,7 +40,7 @@ import com.mapbox.geojson.Point;
 
 import com.mapbox.android.core.permissions.PermissionsManager;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class RCTMGLCamera extends AbstractMapFeature {
     private RCTMGLCameraManager mManager;
@@ -62,7 +62,7 @@ public class RCTMGLCamera extends AbstractMapFeature {
 
     private LocationManager mLocationManager;
     private UserLocation mUserLocation;
-    private boolean mShowUserLocation = false;
+    private boolean mShowUserLocation = true;
 
     private Point mCenterCoordinate;
 
@@ -275,12 +275,12 @@ public class RCTMGLCamera extends AbstractMapFeature {
         MapboxMap.CancelableCallback cameraCallback = new MapboxMap.CancelableCallback() {
             @Override
             public void onCancel() {
-                mUserTrackingState = UserTrackingState.CHANGED;
+//                mUserTrackingState = UserTrackingState.CHANGED;
             }
 
             @Override
             public void onFinish() {
-                mUserTrackingState = UserTrackingState.CHANGED;
+//                mUserTrackingState = UserTrackingState.CHANGED;
             }
         };
 
@@ -300,12 +300,12 @@ public class RCTMGLCamera extends AbstractMapFeature {
         MapboxMap.CancelableCallback callback = new MapboxMap.CancelableCallback() {
             @Override
             public void onCancel() {
-                mUserTrackingState = UserTrackingState.CHANGED;
+//                mUserTrackingState = UserTrackingState.CHANGED;
             }
 
             @Override
             public void onFinish() {
-                mUserTrackingState = UserTrackingState.CHANGED;
+//                mUserTrackingState = UserTrackingState.CHANGED;
             }
         };
 
@@ -478,7 +478,7 @@ public class RCTMGLCamera extends AbstractMapFeature {
                 if (oldTrackingMode == UserTrackingMode.NONE) {
                     mUserTrackingState = UserTrackingState.POSSIBLE;
                 }
-                mShowUserLocation = false;
+//                mShowUserLocation = false;
                 break;
 
         }
