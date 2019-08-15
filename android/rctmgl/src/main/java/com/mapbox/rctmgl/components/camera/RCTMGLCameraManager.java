@@ -70,6 +70,10 @@ public class RCTMGLCameraManager extends AbstractEventEmitter<RCTMGLCamera> {
     public void setFollowUserMode(RCTMGLCamera camera, String value) {
         camera.setFollowUserMode(value);
     }
+    @ReactProp(name="followUserPitch")
+    public void setFollowPitch(RCTMGLCamera camera, double value) {
+        camera.setFollowPitch(value);
+    }
 
     @ReactProp(name="minZoomLevel")
     public void setMinZoomLevel(RCTMGLCamera camera, double value) {
