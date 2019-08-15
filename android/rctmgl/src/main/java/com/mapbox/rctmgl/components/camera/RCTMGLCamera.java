@@ -437,6 +437,11 @@ public class RCTMGLCamera extends AbstractMapFeature {
         updateCameraPositionIfNeeded(false);
     }
 
+    public void setFollowPitch(double pitch) {
+        mPitch = pitch;
+        updateCameraPositionIfNeeded(true);
+    }
+
     private CameraPosition buildCamera(CameraPosition previousPosition, boolean shouldUpdateTarget) {
         CameraPosition.Builder builder = new CameraPosition.Builder(previousPosition)
                 .bearing(mHeading)
@@ -500,6 +505,8 @@ public class RCTMGLCamera extends AbstractMapFeature {
         mFollowUserMode = mode;
         updatedFollowUserMode();
     }
+
+
 
     private void updatedFollowUserMode() {
         if (mFollowUserLocation) {
