@@ -73,6 +73,7 @@ RCT_REMAP_VIEW_PROPERTY(scrollEnabled, reactScrollEnabled, BOOL)
 RCT_REMAP_VIEW_PROPERTY(pitchEnabled, reactPitchEnabled, BOOL)
 RCT_REMAP_VIEW_PROPERTY(rotateEnabled, reactRotateEnabled, BOOL)
 RCT_REMAP_VIEW_PROPERTY(attributionEnabled, reactAttributionEnabled, BOOL)
+RCT_REMAP_VIEW_PROPERTY(attributionPosition, reactAttributionPosition, NSDictionary)
 RCT_REMAP_VIEW_PROPERTY(logoEnabled, reactLogoEnabled, BOOL)
 RCT_REMAP_VIEW_PROPERTY(compassEnabled, reactCompassEnabled, BOOL)
 RCT_REMAP_VIEW_PROPERTY(zoomEnabled, reactZoomEnabled, BOOL)
@@ -438,6 +439,8 @@ RCT_EXPORT_METHOD(showAttribution:(nonnull NSNumber *)reactTag
 
 - (void)mapView:(MGLMapView *)mapView regionDidChangeWithReason:(MGLCameraChangeReason)reason animated:(BOOL)animated
 {
+    if (reason & MGLCameraChangeReasonTransitionCancelled == MGLCameraChangeReasonTransitionCancelled) return;
+
     ((RCTMGLMapView *) mapView).isUserInteraction = (BOOL)(reason & ~MGLCameraChangeReasonProgrammatic);
     
     NSDictionary *payload = [self _makeRegionPayload:mapView animated:animated];
