@@ -147,7 +147,7 @@ declare namespace MapboxGL {
         Light = 'mapbox://styles/mapbox/light-v10',
         Outdoors = 'mapbox://styles/mapbox/outdoors-v11',
         Satellite = 'mapbox://styles/mapbox/satellite-v9',
-        SatelliteStreeet = 'mapbox://styles/mapbox/satellite-streets-v11',
+        SatelliteStreet = 'mapbox://styles/mapbox/satellite-streets-v11',
         TrafficDay = 'mapbox://styles/mapbox/navigation-preview-day-v4',
         TrafficNight = 'mapbox://styles/mapbox/navigation-preview-night-v4'
     }
@@ -179,6 +179,8 @@ export interface MapViewProps extends ViewProperties {
     attributionPosition?: AttributionPosition;
     logoEnabled?: boolean;
     compassEnabled?: boolean;
+    compassViewPosition?: number;
+    compassViewMargins?: object;
     surfaceView?: boolean;
     regionWillChangeDebounceTime?: number;
     regionDidChangeDebounceTime?: number;
@@ -476,9 +478,15 @@ export interface CalloutProps extends ViewProps {
 
 }
 
-export interface VectorSourceProps extends ViewProps {
+export interface TileSourceProps extends ViewProps {
     id?: string;
     url?: string;
+    tileUrlTemplates?: Array<string>;
+    minZoomLevel?: number;
+    maxZoomLevel?: number;
+}
+
+export interface VectorSourceProps extends TileSourceProps {
     onPress?: (...args: any[]) => any;
     hitbox?: {
         width: number;
@@ -504,14 +512,8 @@ export interface ShapeSourceProps extends ViewProps {
     };
 }
 
-export interface RasterSourceProps extends ViewProps {
-    id?: MapboxGL.StyleSource;
-    url?: string;
-    minZoomLevel?: number;
-    maxZoomLevel?: number;
+export interface RasterSourceProps extends TileSourceProps {
     tileSize?: number;
-    tms?: boolean;
-    attribution?: string;
 }
 
 export interface LayerBaseProps extends ViewProps {

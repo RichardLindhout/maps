@@ -78,6 +78,10 @@ RCT_REMAP_VIEW_PROPERTY(logoEnabled, reactLogoEnabled, BOOL)
 RCT_REMAP_VIEW_PROPERTY(compassEnabled, reactCompassEnabled, BOOL)
 RCT_REMAP_VIEW_PROPERTY(zoomEnabled, reactZoomEnabled, BOOL)
 
+RCT_REMAP_VIEW_PROPERTY(compassViewPosition, reactCompassViewPosition, NSInteger *)
+RCT_REMAP_VIEW_PROPERTY(compassViewMargins, reactCompassViewMargins, CGPoint)
+
+
 RCT_REMAP_VIEW_PROPERTY(contentInset, reactContentInset, NSArray)
 RCT_REMAP_VIEW_PROPERTY(styleURL, reactStyleURL, NSString)
 RCT_REMAP_VIEW_PROPERTY(preferredFramesPerSecond, reactPreferredFramesPerSecond, NSInteger)
@@ -438,8 +442,8 @@ RCT_EXPORT_METHOD(showAttribution:(nonnull NSNumber *)reactTag
 }
 
 - (void)mapView:(MGLMapView *)mapView regionDidChangeWithReason:(MGLCameraChangeReason)reason animated:(BOOL)animated
-{
-    if (reason & MGLCameraChangeReasonTransitionCancelled == MGLCameraChangeReasonTransitionCancelled) return;
+{    
+    if ((reason & MGLCameraChangeReasonTransitionCancelled) == MGLCameraChangeReasonTransitionCancelled) return;
 
     ((RCTMGLMapView *) mapView).isUserInteraction = (BOOL)(reason & ~MGLCameraChangeReasonProgrammatic);
     
