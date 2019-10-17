@@ -78,9 +78,17 @@
     
     if (_styleLayer != nil) {
         NSPredicate *predicate = [self buildFilters];
-        if (predicate) {
-            [self updateFilter:predicate];
-        }
+        [self updateFilter:predicate];
+    }
+}
+
+- (void)setMap:(RCTMGLMapView *)map {
+    if (map == nil) {
+        [self removeFromMap:_map.style];
+        _map = nil;
+    } else {
+        _map = map;
+        [self addToMap:map style:map.style];
     }
 }
 
@@ -97,6 +105,9 @@
 
 - (void)addToMap:(RCTMGLMapView*) map style:(MGLStyle *)style
 {
+    if (style == nil) {
+        return;
+    }
     _map = map;
     _style = style;
     if (_id == nil) {
