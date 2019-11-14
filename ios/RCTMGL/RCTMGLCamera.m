@@ -117,9 +117,9 @@
         return;
     }
     
-    if (_map != nil && _map.userTrackingMode != MGLUserTrackingModeNone) {
-        _map.userTrackingMode = MGLUserTrackingModeNone;
-    }
+//    if (_map != nil && _map.userTrackingMode != MGLUserTrackingModeNone) {
+//        _map.userTrackingMode = MGLUserTrackingModeNone;
+//    }
     
     [cameraUpdateQueue enqueue:[CameraStop fromDictionary:_stop]];
     [cameraUpdateQueue execute:_map];
