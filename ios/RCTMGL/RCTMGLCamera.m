@@ -207,7 +207,7 @@
 
 - (NSUInteger)_userTrackingMode
 {
-    if ([_followUserMode isEqualToString:@"heading"]) {
+    if ([_followUserMode isEqualToString:@"compass"]) {
         return MGLUserTrackingModeFollowWithHeading;
     } else if ([_followUserMode isEqualToString:@"course"]) {
         return MGLUserTrackingModeFollowWithCourse;
