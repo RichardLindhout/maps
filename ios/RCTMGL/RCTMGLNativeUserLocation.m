@@ -32,6 +32,9 @@
         // current (hidden) user location annotation view. See also: HiddenUserLocationAnnotationView
         map.showsUserLocation = NO;
         map.showsUserLocation = YES;
+        map.userTrackingMode = MGLUserTrackingModeFollowWithHeading;
+        
+
     }
     
     _map = map;
