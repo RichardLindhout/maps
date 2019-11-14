@@ -79,12 +79,16 @@
 
 - (void)setFollowUserLocation:(BOOL)followUserLocation
 {
+    NSLog( @"Follow user location: '%d'", followUserLocation );
+
     _followUserLocation = followUserLocation;
     [self _updateCameraFromTrackingMode];
 }
 
 - (void)setFollowUserMode:(NSString *)followUserMode
 {
+    NSLog( @"Follow user mode: '%@'", followUserMode );
+
     _followUserMode = followUserMode;
     [self _updateCameraFromTrackingMode];
 }
@@ -117,7 +121,12 @@
         return;
     }
     
+    NSLog( @"_updateCameraFromJavascript" );
+
+    
     if (_map != nil && _map.userTrackingMode != MGLUserTrackingModeNone) {
+         NSLog( @"_map != nil && _map.userTrackingMode != MGLUserTrackingModeNone" );
+        NSLog( @"_map.userTrackingMode" );
         _map.userTrackingMode = MGLUserTrackingModeNone;
     }
     
