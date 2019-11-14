@@ -56,6 +56,7 @@ typedef void (^FoundLayerBlock) (MGLStyleLayer* layer);
 @property (nonatomic, assign) MGLCoordinateBounds maxBounds;
 
 @property (nonatomic, assign) BOOL isUserInteraction;
+@property (nonatomic, assign) BOOL useNativeUserLocationAnnotationView;
 
 @property (nonatomic, copy) RCTBubblingEventBlock onPress;
 @property (nonatomic, copy) RCTBubblingEventBlock onLongPress;
