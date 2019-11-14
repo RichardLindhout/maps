@@ -194,7 +194,7 @@
     if (_map.userTrackingMode != [self _userTrackingMode]) {
         NSLog( @"_map.userTrackingMode != [self _userTrackingMode]" );
         NSLog( @"_map.userTrackingMode: '%@'", _map.userTrackingMode );
-        NSLog( @"[self _userTrackingMode]: '%@'", [self _userTrackingMode] );
+//        NSLog( @"[self _userTrackingMode]: '%@'", [self _userTrackingMode] );
 
         
         _map.showsUserLocation = [self _userTrackingMode] != MGLUserTrackingModeNone;
@@ -228,7 +228,7 @@
     NSLog( @"- (NSUInteger)_userTrackingMode;" );
     NSLog(_followUserMode);
     
-    if ([_followUserMode isEqualToString:@"compass"]) {
+    if ([_followUserMode isEqualToString:@"heading"]) {
         return MGLUserTrackingModeFollowWithHeading;
     } else if ([_followUserMode isEqualToString:@"course"]) {
         return MGLUserTrackingModeFollowWithCourse;
