@@ -79,16 +79,12 @@
 
 - (void)setFollowUserLocation:(BOOL)followUserLocation
 {
-    NSLog( @"Follow user location: '%d'", followUserLocation );
-
     _followUserLocation = followUserLocation;
     [self _updateCameraFromTrackingMode];
 }
 
 - (void)setFollowUserMode:(NSString *)followUserMode
 {
-    NSLog( @"Follow user mode: '%@'", followUserMode );
-
     _followUserMode = followUserMode;
     [self _updateCameraFromTrackingMode];
 }
@@ -121,12 +117,7 @@
         return;
     }
     
-    NSLog( @"_updateCameraFromJavascript" );
-
-    
     if (_map != nil && _map.userTrackingMode != MGLUserTrackingModeNone) {
-         NSLog( @"_map != nil && _map.userTrackingMode != MGLUserTrackingModeNone" );
-        NSLog( @"_map.userTrackingMode" );
         _map.userTrackingMode = MGLUserTrackingModeNone;
     }
     
@@ -186,17 +177,11 @@
           return;
     }
     if (!_followUserLocation) {
-        NSLog( @"_map.userTrackingMode = MGLUserTrackingModeNone;" );
         _map.userTrackingMode = MGLUserTrackingModeNone;
         return;
     }
     
     if (_map.userTrackingMode != [self _userTrackingMode]) {
-        NSLog( @"_map.userTrackingMode != [self _userTrackingMode]" );
-        NSLog( @"_map.userTrackingMode: '%@'", _map.userTrackingMode );
-//        NSLog( @"[self _userTrackingMode]: '%@'", [self _userTrackingMode] );
-
-        
         _map.showsUserLocation = [self _userTrackingMode] != MGLUserTrackingModeNone;
         _map.userTrackingMode = [self _userTrackingMode];
     }
@@ -225,10 +210,7 @@
 
 - (NSUInteger)_userTrackingMode
 {
-    NSLog( @"- (NSUInteger)_userTrackingMode;" );
-    NSLog(_followUserMode);
-    
-    if ([_followUserMode isEqualToString:@"heading"]) {
+    if ([_followUserMode isEqualToString:@"compass"]) {
         return MGLUserTrackingModeFollowWithHeading;
     } else if ([_followUserMode isEqualToString:@"course"]) {
         return MGLUserTrackingModeFollowWithCourse;

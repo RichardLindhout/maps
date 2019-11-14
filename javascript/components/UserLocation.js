@@ -66,15 +66,14 @@ class UserLocation extends React.Component {
   static defaultProps = {
     animated: true,
     visible: true,
-    renderType: "library",
+    renderType: "normal",
     renderMode: "normal"
   };
   static RenderType = {
-    Native: "native",
+    Library: "library",
     Normal: "normal"
   };
   static RenderMode = {
-    Native: "native",
     Normal: "normal",
     Custom: "custom",
     Compass: "compass",
@@ -93,7 +92,7 @@ class UserLocation extends React.Component {
   }
 
   async componentDidMount() {
-    if (this.renderType === UserLocation.RenderType.Native) return;
+    if (this.renderType === UserLocation.RenderType.Library) return;
 
     locationManager.addListener(this._onLocationUpdate);
     await this.setLocationManager({
@@ -121,7 +120,7 @@ class UserLocation extends React.Component {
   };
 
   needsLocationManagerRunning() {
-    if (this.props.renderType === UserLocation.RenderType.Native) return false;
+    if (this.props.renderType === UserLocation.RenderType.Library) return false;
     return this.props.onUpdate || this.props.visible;
   }
 
@@ -167,7 +166,7 @@ class UserLocation extends React.Component {
       return null;
     }
 
-    if (this.props.renderType === UserLocation.RenderType.Native) {
+    if (this.props.renderType === UserLocation.RenderType.Library) {
       return <NativeUserLocation {...this.props} />;
     }
 
