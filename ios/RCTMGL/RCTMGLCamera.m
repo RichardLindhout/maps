@@ -186,11 +186,14 @@
           return;
     }
     if (!_followUserLocation) {
+        NSLog( @"_map.userTrackingMode = MGLUserTrackingModeNone;" );
         _map.userTrackingMode = MGLUserTrackingModeNone;
         return;
     }
     
     if (_map.userTrackingMode != [self _userTrackingMode]) {
+        NSLog( @"_map.userTrackingMode != [self _userTrackingMode]" );
+
         _map.showsUserLocation = [self _userTrackingMode] != MGLUserTrackingModeNone;
         _map.userTrackingMode = [self _userTrackingMode];
     }
