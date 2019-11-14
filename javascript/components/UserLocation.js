@@ -52,8 +52,8 @@ const normalIcon = [
 class UserLocation extends React.Component {
   static propTypes = {
     animated: PropTypes.bool,
-
-    renderMode: PropTypes.oneOf(["normal", "custom", "native"]),
+    renderType: PropTypes.oneOf(["normal", "library"]),
+    renderMode: PropTypes.oneOf(["normal", "custom", "compass", "gps"]),
 
     visible: PropTypes.bool,
 
@@ -66,13 +66,19 @@ class UserLocation extends React.Component {
   static defaultProps = {
     animated: true,
     visible: true,
+    renderType: "library",
     renderMode: "normal"
   };
-
+  static RenderType = {
+    Native: "native",
+    Normal: "normal"
+  };
   static RenderMode = {
     Native: "native",
     Normal: "normal",
-    Custom: "custom"
+    Custom: "custom",
+    Compass: "compass",
+    Gps: "gps"
   };
 
   constructor(props) {
@@ -87,7 +93,7 @@ class UserLocation extends React.Component {
   }
 
   async componentDidMount() {
-    if (this.renderMode === UserLocation.RenderMode.Native) return;
+    if (this.renderType === UserLocation.RenderType.Native) return;
 
     locationManager.addListener(this._onLocationUpdate);
     await this.setLocationManager({
@@ -115,7 +121,7 @@ class UserLocation extends React.Component {
   };
 
   needsLocationManagerRunning() {
-    if (this.props.renderMode === UserLocation.RenderMode.Native) return false;
+    if (this.props.renderType === UserLocation.RenderType.Native) return false;
     return this.props.onUpdate || this.props.visible;
   }
 
@@ -161,7 +167,7 @@ class UserLocation extends React.Component {
       return null;
     }
 
-    if (this.props.renderMode === UserLocation.RenderMode.Native) {
+    if (this.props.renderType === UserLocation.RenderType.Native) {
       return <NativeUserLocation {...this.props} />;
     }
 
