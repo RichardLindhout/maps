@@ -173,15 +173,15 @@
 
 - (void)_updateCameraFromTrackingMode
 {
-    if (!_followUserLocation || _map == nil) {
-        _map.userTrackingMode = MGLUserTrackingModeNone;
-        return;
-    }
-    
-    if (_map.userTrackingMode != [self _userTrackingMode]) {
-        _map.showsUserLocation = [self _userTrackingMode] != MGLUserTrackingModeNone;
-        _map.userTrackingMode = [self _userTrackingMode];
-    }
+//    if (!_followUserLocation || _map == nil) {
+//        _map.userTrackingMode = MGLUserTrackingModeNone;
+//        return;
+//    }
+//    
+//    if (_map.userTrackingMode != [self _userTrackingMode]) {
+//        _map.showsUserLocation = [self _userTrackingMode] != MGLUserTrackingModeNone;
+//        _map.userTrackingMode = [self _userTrackingMode];
+//    }
     
     MGLMapCamera *camera = _map.camera;
     if (_followPitch != nil && [_followPitch floatValue] >= 0.0) {
