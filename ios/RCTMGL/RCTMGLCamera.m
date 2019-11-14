@@ -193,7 +193,10 @@
     
     if (_map.userTrackingMode != [self _userTrackingMode]) {
         NSLog( @"_map.userTrackingMode != [self _userTrackingMode]" );
+        NSLog( @"_map.userTrackingMode: '%@'", _map.userTrackingMode );
+        NSLog( @"[self _userTrackingMode]: '%@'", [self _userTrackingMode] );
 
+        
         _map.showsUserLocation = [self _userTrackingMode] != MGLUserTrackingModeNone;
         _map.userTrackingMode = [self _userTrackingMode];
     }
