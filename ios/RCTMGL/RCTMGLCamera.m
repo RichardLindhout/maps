@@ -173,7 +173,10 @@
 
 - (void)_updateCameraFromTrackingMode
 {
-    if (!_followUserLocation || _map == nil) {
+    if (_map == nil) {
+          return;
+    }
+    if (!_followUserLocation) {
         _map.userTrackingMode = MGLUserTrackingModeNone;
         return;
     }
