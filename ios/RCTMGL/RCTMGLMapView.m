@@ -10,7 +10,8 @@
 #import "CameraUpdateQueue.h"
 #import "RCTMGLUtils.h"
 #import "RNMBImageUtils.h"
-#import "UIView+React.h"
+#import <React/UIView+React.h>
+
 #import "RCTMGLNativeUserLocation.h"
 
 @implementation RCTMGLMapView

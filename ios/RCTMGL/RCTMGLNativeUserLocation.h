@@ -14,5 +14,4 @@
 
 @property (nonatomic, strong) RCTMGLMapView *map;
 
-
 @end
