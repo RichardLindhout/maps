@@ -222,6 +222,9 @@
 
 - (NSUInteger)_userTrackingMode
 {
+    NSLog( @"- (NSUInteger)_userTrackingMode;" );
+    NSLog(_followUserMode);
+    
     if ([_followUserMode isEqualToString:@"compass"]) {
         return MGLUserTrackingModeFollowWithHeading;
     } else if ([_followUserMode isEqualToString:@"course"]) {
