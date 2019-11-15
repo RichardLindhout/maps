@@ -160,6 +160,7 @@ public class LocationManager implements LocationEngineCallback<LocationEngineRes
         // because the user has likely moved
         if (isSignificantlyNewer) {
             // If the new location is more than two minutes older, it must be worse
+            return true;
         } else if (isSignificantlyOlder) {
             return false;
         }
