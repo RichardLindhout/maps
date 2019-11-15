@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import timber.log.Timber;
+
 /**
  * Created by nickitaliano on 12/12/17.
  */
@@ -40,7 +42,7 @@ public class LocationManager implements LocationEngineCallback<LocationEngineRes
 
     private boolean isActive = false;
     private Location lastLocation = null;
-
+    private Location lastDispatchedLocation = null;
     private LocationEngineRequest locationEngineRequest = null;
 
     private static WeakReference<LocationManager> INSTANCE = null;
@@ -173,7 +175,9 @@ public class LocationManager implements LocationEngineCallback<LocationEngineRes
 
         // events keeps firing with very low change constantly
         double distance = distanceInCm(location.getLatitude(), location.getLongitude(), currentBestLocation.getLatitude(), currentBestLocation.getLongitude());
-        boolean notSignificant = isMoreAccurate ? distance < 10 : distance < 100;
+
+        boolean isSignificant = isMoreAccurate ? distance > 10 : distance > 100;
+
 
 
         // Check if the old and new location are from the same provider
@@ -181,11 +185,11 @@ public class LocationManager implements LocationEngineCallback<LocationEngineRes
                 currentBestLocation.getProvider());
 
         // Determine location quality using a combination of timeliness and accuracy
-        if (isMoreAccurate && !notSignificant) {
+        if (isMoreAccurate && isSignificant) {
             return true;
-        } else if (isNewer && !isLessAccurate && !notSignificant) {
+        } else if (isNewer && !isLessAccurate &&isSignificant) {
             return true;
-        } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider && !notSignificant) {
+        } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider && isSignificant) {
             return true;
         }
 
@@ -224,13 +228,14 @@ public class LocationManager implements LocationEngineCallback<LocationEngineRes
     public void onLocationChanged(Location location) {
         Log.d(LOG_TAG, String.format(Locale.ENGLISH, "Tick [%f, %f]", location.getLongitude(), location.getLatitude()));
         Log.d(LOG_TAG, String.format(Locale.ENGLISH, "Listener count %d", listeners.size()));
-        if (isBetterLocation(location, lastLocation)) {
+        if (isBetterLocation(location, lastDispatchedLocation)) {
             for (OnUserLocationChange listener : listeners) {
                 listener.onLocationChange(location);
 
             }
-            lastLocation = location;
+            lastDispatchedLocation = location;
         }
+        lastLocation = location;
     }
 
     @Override
@@ -240,6 +245,8 @@ public class LocationManager implements LocationEngineCallback<LocationEngineRes
 
     @Override
     public void onSuccess(LocationEngineResult result) {
-        onLocationChanged(result.getLastLocation());
+        if (result != null) {
+            onLocationChanged(result.getLastLocation());
+        }
     }
 }
