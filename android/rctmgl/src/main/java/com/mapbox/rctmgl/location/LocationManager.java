@@ -171,7 +171,8 @@ public class LocationManager implements LocationEngineCallback<LocationEngineRes
         boolean isSignificantlyLessAccurate = accuracyDelta > 200;
 
         // events keeps firing with very low change constantly
-        boolean notSignificant = accuracyDelta > -1 && accuracyDelta < 1;
+        double distance = distanceInCm(location.getLatitude(), location.getLongitude(), currentBestLocation.getLatitude(), currentBestLocation.getLongitude());
+        boolean notSignificant = isMoreAccurate ? distance < 10 : distance < 100;
 
 
         // Check if the old and new location are from the same provider
@@ -197,22 +198,38 @@ public class LocationManager implements LocationEngineCallback<LocationEngineRes
         return provider1.equals(provider2);
     }
 
+    /** calculates the distance between two locations in MILES */
+    private double distanceInCm(double lat1, double lng1, double lat2, double lng2) {
 
+        double earthRadius = 6371; // in km, change to  3958.75 for miles output
+
+        double dLat = Math.toRadians(lat2-lat1);
+        double dLng = Math.toRadians(lng2-lng1);
+
+        double sindLat = Math.sin(dLat / 2);
+        double sindLng = Math.sin(dLng / 2);
+
+        double a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
+                * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+
+
+        return earthRadius * c * 100000; // output distance, in CM
+    }
+
+    //    https://stackoverflow.com/questions/18170131/comparing-two-locations-using-their-longitude-and-latitude
     public void onLocationChanged(Location location) {
-
         Log.d(LOG_TAG, String.format(Locale.ENGLISH, "Tick [%f, %f]", location.getLongitude(), location.getLatitude()));
         Log.d(LOG_TAG, String.format(Locale.ENGLISH, "Listener count %d", listeners.size()));
-
         if (isBetterLocation(location, lastLocation)) {
             for (OnUserLocationChange listener : listeners) {
                 listener.onLocationChange(location);
 
             }
-
             lastLocation = location;
         }
-
-
     }
 
     @Override
