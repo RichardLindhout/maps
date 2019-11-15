@@ -92,7 +92,7 @@ class UserLocation extends React.Component {
   }
 
   async componentDidMount() {
-    if (this.renderType === UserLocation.RenderType.Library) return;
+//     if (this.renderType === UserLocation.RenderType.Library) return;
 
     locationManager.addListener(this._onLocationUpdate);
     await this.setLocationManager({
@@ -120,7 +120,7 @@ class UserLocation extends React.Component {
   };
 
   needsLocationManagerRunning() {
-    if (this.props.renderType === UserLocation.RenderType.Library) return false;
+//     if (this.props.renderType === UserLocation.RenderType.Library) return false;
     return this.props.onUpdate || this.props.visible;
   }
 
